@@ -10,6 +10,10 @@ namespace TourismAgency.Services
     {
         IEnumerable<Putovanja> Get();
 
+        Putovanja GetbyId(int id);
 
     }
+
+
+
 }

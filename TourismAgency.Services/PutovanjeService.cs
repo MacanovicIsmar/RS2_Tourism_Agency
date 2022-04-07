@@ -6,11 +6,48 @@ using System.Threading.Tasks;
 
 namespace TourismAgency.Services
 {
-    internal class PutovanjeService : IPutovanjaServices
+    public class PutovanjeService : IPutovanjaServices
     {
+        public List<Putovanja> Putovanja = new List<Putovanja>()
+            {
+                new Putovanja()
+                {
+                    Id=1,
+                    Name="London"
+
+                },
+
+                new Putovanja()
+                {
+                    Id=1,
+                    Name="Berlin"
+
+                }
+
+
+
+            };
+
+
         public IEnumerable<Putovanja> Get()
         {
-            throw new NotImplementedException();
+            return Putovanja;
+
+
+
+
         }
+
+        public Putovanja GetbyId(int id)
+        {
+
+
+            return Putovanja.FirstOrDefault(X => X.Id == id);
+        
+        
+        }
+
+
+
     }
 }

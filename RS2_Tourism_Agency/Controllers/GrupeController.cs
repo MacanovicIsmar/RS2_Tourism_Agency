@@ -9,15 +9,15 @@ namespace RS2_Tourism_Agency.Controllers
     [ApiController]
     [Route("[controller]")]
 
-    public class PutovanjeController:ControllerBase
+    public class GrupeController:ControllerBase
     {
-        private readonly IPutovanjaServices _PutovanjeService;
+        private readonly IGrupeService _GrupeService;
 
 
-        public PutovanjeController(IPutovanjaServices PutovanjeService)
+        public GrupeController(IGrupeService GrupeService)
         {
 
-            _PutovanjeService = PutovanjeService;
+            _GrupeService = GrupeService;
 
 
         }
@@ -25,11 +25,11 @@ namespace RS2_Tourism_Agency.Controllers
 
 
         [HttpGet]
-        public IEnumerable<RS2_Tourism_Agency.Model.Putovanje> Get(string naziv ,string sifra)
+        public IEnumerable<RS2_Tourism_Agency.Model.Grupe> Get(string naziv ,string sifra)
         {
             
 
-            return _PutovanjeService.Get();
+            return _GrupeService.Get();
 
             //if (_PutovanjeService != null)
             //{
@@ -42,12 +42,12 @@ namespace RS2_Tourism_Agency.Controllers
 
         }
         [HttpGet("{id}")]
-        public RS2_Tourism_Agency.Model.Putovanje GetbyId(int id)
+        public RS2_Tourism_Agency.Model.Grupe GetbyId(int id)
         {
 
 
 
-            return _PutovanjeService.GetbyId(id);
+            return _GrupeService.GetbyId(id);
 
 
 

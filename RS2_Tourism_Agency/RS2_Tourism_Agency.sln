@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RS2_Tourism_Agency", "RS2_Tourism_Agency.csproj", "{34B43C0B-6C27-4CB8-B464-95948DB01947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS2_Tourism_Agency", "RS2_Tourism_Agency.csproj", "{34B43C0B-6C27-4CB8-B464-95948DB01947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourismAgency.Services", "..\TourismAgency.Services\TourismAgency.Services.csproj", "{9B0E15C8-4FA6-4F9B-AD5B-483C7001BEDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourismAgency.Services", "..\TourismAgency.Services\TourismAgency.Services.csproj", "{9B0E15C8-4FA6-4F9B-AD5B-483C7001BEDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RS2_Tourism_Agency.Model", "..\RS2_Tourism_Agency.Model\RS2_Tourism_Agency.Model.csproj", "{B4C6B289-5190-4224-B032-95058975336B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9B0E15C8-4FA6-4F9B-AD5B-483C7001BEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B0E15C8-4FA6-4F9B-AD5B-483C7001BEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B0E15C8-4FA6-4F9B-AD5B-483C7001BEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4C6B289-5190-4224-B032-95058975336B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4C6B289-5190-4224-B032-95058975336B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4C6B289-5190-4224-B032-95058975336B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4C6B289-5190-4224-B032-95058975336B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

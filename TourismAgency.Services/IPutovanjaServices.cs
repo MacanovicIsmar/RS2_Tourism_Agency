@@ -4,13 +4,17 @@
 
 
 
+
+
+using RS2_Tourism_Agency.Model;
+
 namespace TourismAgency.Services
 {
     public interface IPutovanjaServices
     {
-        IEnumerable<Putovanja> Get();
+        IEnumerable<Putovanje> Get();
 
-        Putovanja GetbyId(int id);
+        Putovanje GetbyId(int id);
 
     }
 

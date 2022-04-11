@@ -1,5 +1,4 @@
 ﻿using RS2_Tourism_Agency.Model;
-using RS2_Tourism_Agency.Model.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace TourismAgency.Services
 {
-    public interface IGrupeService:Iservice<Grupe,GrupeSearchObject>
+    public interface Iservice<T,TSearch> where T :class where TSearch : class
     {
-        //IEnumerable<Grupe> Get();
+        IEnumerable<T> Get(TSearch search = null);
 
-        //Grupe GetbyId(int id);
+        T GetbyId(int id);
+
+
     }
 }

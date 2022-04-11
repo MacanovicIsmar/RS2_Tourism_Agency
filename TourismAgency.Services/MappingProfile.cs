@@ -15,7 +15,7 @@ namespace TourismAgency.Services
             CreateMap<Database.Korisnik, RS2_Tourism_Agency.Model.Korisnici>();
             CreateMap<Database.Putovanje, RS2_Tourism_Agency.Model.Putovanje>();
             CreateMap<Database.Grupe, RS2_Tourism_Agency.Model.Grupe>();
-
+            CreateMap<RS2_Tourism_Agency.Model.Request.PutovanjeInsertRequest ,Database.Putovanje>();
         }
 
 

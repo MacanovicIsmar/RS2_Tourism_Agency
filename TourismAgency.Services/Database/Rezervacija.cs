@@ -5,6 +5,11 @@ namespace TourismAgency.Services.Database
 {
     public partial class Rezervacija
     {
+        public Rezervacija()
+        {
+            Korisniks = new HashSet<Korisnik>();
+        }
+
         public int Id { get; set; }
         public string? Naziv { get; set; }
         public int? PutovanjeId { get; set; }
@@ -13,6 +18,6 @@ namespace TourismAgency.Services.Database
 
         public virtual Putovanje? Putovanje { get; set; }
         public virtual Smjestaj? Smjestaj { get; set; }
-        public virtual Korisnik? Korisnik { get; set; }
+        public virtual ICollection<Korisnik> Korisniks { get; set; }
     }
 }

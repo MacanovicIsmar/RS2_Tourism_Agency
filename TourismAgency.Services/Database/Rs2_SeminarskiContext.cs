@@ -17,12 +17,15 @@ namespace TourismAgency.Services.Database
         }
 
         public virtual DbSet<Drzava> Drzavas { get; set; } = null!;
-        public virtual DbSet<Grupe> Grupe { get; set; } = null!;
+        public virtual DbSet<Grupe> Grupes { get; set; } = null!;
+        public virtual DbSet<Grupe2> Grupe2s { get; set; } = null!;
         public virtual DbSet<Korisnik> Korisniks { get; set; } = null!;
+        public virtual DbSet<Korisnik2> Korisnik2s { get; set; } = null!;
         public virtual DbSet<Lokacija> Lokacijas { get; set; } = null!;
         public virtual DbSet<Notifikacija> Notifikacijas { get; set; } = null!;
         public virtual DbSet<PlanAktivnosti> PlanAktivnostis { get; set; } = null!;
-        public virtual DbSet<Putovanje> Putovanja { get; set; } = null!;
+        public virtual DbSet<Putovanje> Putovanjes { get; set; } = null!;
+        public virtual DbSet<Putovanje2> Putovanje2s { get; set; } = null!;
         public virtual DbSet<Rezervacija> Rezervacijas { get; set; } = null!;
         public virtual DbSet<Smjestaj> Smjestajs { get; set; } = null!;
         public virtual DbSet<Turist> Turists { get; set; } = null!;
@@ -55,40 +58,43 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Grupe");
 
-                entity.HasIndex(e => e.VodicId, "UQ__Grupe__CE11CD4759CBFB0A")
-                    .IsUnique();
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.BrojSlobodnihMjesta).HasColumnName("broj slobodnih mjesta");
+
+                entity.Property(e => e.BrojZauzetihMjesta).HasColumnName("broj zauzetih mjesta");
+
+                entity.Property(e => e.PutovanjeId).HasColumnName("Putovanje_Id");
+
+                entity.Property(e => e.VodicId).HasColumnName("vodic_id");
+
+                entity.HasOne(d => d.Putovanje)
+                    .WithMany(p => p.Grupes)
+                    .HasForeignKey(d => d.PutovanjeId);
+
+                entity.HasOne(d => d.Vodic)
+                    .WithMany(p => p.Grupes)
+                    .HasForeignKey(d => d.VodicId);
+            });
+
+            modelBuilder.Entity<Grupe2>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Grupe2");
 
                 entity.Property(e => e.BrojSlobodnihMjesta).HasColumnName("broj slobodnih mjesta");
 
                 entity.Property(e => e.BrojZauzetihMjesta).HasColumnName("broj zauzetih mjesta");
 
                 entity.Property(e => e.VodicId).HasColumnName("vodic_id");
-
-                entity.HasOne(d => d.Vodic)
-                    .WithOne(p => p.Grupe)
-                    .HasForeignKey<Grupe>(d => d.VodicId);
             });
 
             modelBuilder.Entity<Korisnik>(entity =>
             {
                 entity.ToTable("Korisnik");
 
-                entity.HasIndex(e => e.TuristId, "UQ__Korisnik__16654C48EB1922D2")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.RezervacijaId, "UQ__Korisnik__7A26123DD3CDCA67")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.VodicId, "UQ__Korisnik__DF7CE45CD9031731")
-                    .IsUnique();
-
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Email).HasMaxLength(255);
 
@@ -96,11 +102,15 @@ namespace TourismAgency.Services.Database
 
                 entity.Property(e => e.Password).HasMaxLength(255);
 
+                entity.Property(e => e.PasswordSalt).HasMaxLength(255);
+
                 entity.Property(e => e.Prezime).HasMaxLength(255);
 
                 entity.Property(e => e.RezervacijaId).HasColumnName("Rezervacija_Id");
 
                 entity.Property(e => e.Role).HasMaxLength(255);
+
+                entity.Property(e => e.Telefon).HasMaxLength(255);
 
                 entity.Property(e => e.TuristId).HasColumnName("Turist_Id");
 
@@ -109,24 +119,50 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.VodicId).HasColumnName("Vodic_Id");
 
                 entity.HasOne(d => d.Rezervacija)
-                    .WithOne(p => p.Korisnik)
-                    .HasForeignKey<Korisnik>(d => d.RezervacijaId);
+                    .WithMany(p => p.Korisniks)
+                    .HasForeignKey(d => d.RezervacijaId);
 
                 entity.HasOne(d => d.Turist)
-                    .WithOne(p => p.Korisnik)
-                    .HasForeignKey<Korisnik>(d => d.TuristId);
+                    .WithMany(p => p.Korisniks)
+                    .HasForeignKey(d => d.TuristId);
 
                 entity.HasOne(d => d.Vodic)
-                    .WithOne(p => p.Korisnik)
-                    .HasForeignKey<Korisnik>(d => d.VodicId);
+                    .WithMany(p => p.Korisniks)
+                    .HasForeignKey(d => d.VodicId);
+            });
+
+            modelBuilder.Entity<Korisnik2>(entity =>
+            {
+                entity.ToTable("Korisnik2");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Email).HasMaxLength(255);
+
+                entity.Property(e => e.Ime).HasMaxLength(255);
+
+                entity.Property(e => e.Password).HasMaxLength(255);
+
+                entity.Property(e => e.PasswordSalt).HasMaxLength(255);
+
+                entity.Property(e => e.Prezime).HasMaxLength(255);
+
+                entity.Property(e => e.RezervacijaId).HasColumnName("Rezervacija_Id");
+
+                entity.Property(e => e.Role).HasMaxLength(255);
+
+                entity.Property(e => e.Telefon).HasMaxLength(255);
+
+                entity.Property(e => e.TuristId).HasColumnName("Turist_Id");
+
+                entity.Property(e => e.UserName).HasMaxLength(255);
+
+                entity.Property(e => e.VodicId).HasColumnName("Vodic_Id");
             });
 
             modelBuilder.Entity<Lokacija>(entity =>
             {
                 entity.ToTable("Lokacija");
-
-                entity.HasIndex(e => e.SmjestajId, "UQ__Lokacija__2A84F991220BB24D")
-                    .IsUnique();
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
@@ -144,8 +180,8 @@ namespace TourismAgency.Services.Database
                     .HasConstraintName("FK_Lokacija_Putovanje_PutovanjeId");
 
                 entity.HasOne(d => d.Smjestaj)
-                    .WithOne(p => p.Lokacija)
-                    .HasForeignKey<Lokacija>(d => d.SmjestajId);
+                    .WithMany(p => p.Lokacijas)
+                    .HasForeignKey(d => d.SmjestajId);
             });
 
             modelBuilder.Entity<Notifikacija>(entity =>
@@ -197,6 +233,26 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Putovanje");
 
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DrzavaId).HasColumnName("Drzava_Id");
+
+                entity.Property(e => e.Naziv).HasMaxLength(255);
+
+                entity.Property(e => e.Opis).HasMaxLength(255);
+
+                entity.Property(e => e.Polazak).HasMaxLength(255);
+
+                entity.HasOne(d => d.Drzava)
+                    .WithMany(p => p.Putovanjes)
+                    .HasForeignKey(d => d.DrzavaId)
+                    .HasConstraintName("FK_Putovanje_Drzava_ID");
+            });
+
+            modelBuilder.Entity<Putovanje2>(entity =>
+            {
+                entity.ToTable("Putovanje2");
+
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
                     .HasColumnName("ID");
@@ -210,25 +266,11 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.Opis).HasMaxLength(255);
 
                 entity.Property(e => e.Polazak).HasMaxLength(255);
-
-                entity.HasOne(d => d.Drzava)
-                    .WithMany(p => p.Putovanjes)
-                    .HasForeignKey(d => d.DrzavaId)
-                    .HasConstraintName("FK_Putovanje_Drzava_ID");
-
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.Putovanje)
-                    .HasForeignKey<Putovanje>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Putovanje_Grupe_Grupa_Id");
             });
 
             modelBuilder.Entity<Rezervacija>(entity =>
             {
                 entity.ToTable("Rezervacija");
-
-                entity.HasIndex(e => e.SmjestajId, "UQ__Rezervac__2A85E589320D8FF1")
-                    .IsUnique();
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
@@ -248,8 +290,8 @@ namespace TourismAgency.Services.Database
                     .HasConstraintName("FK_Rezervacija_Putovanje_PutovanjeId");
 
                 entity.HasOne(d => d.Smjestaj)
-                    .WithOne(p => p.Rezervacija)
-                    .HasForeignKey<Rezervacija>(d => d.SmjestajId);
+                    .WithMany(p => p.Rezervacijas)
+                    .HasForeignKey(d => d.SmjestajId);
             });
 
             modelBuilder.Entity<Smjestaj>(entity =>
@@ -314,9 +356,6 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Zaduzenja");
 
-                entity.HasIndex(e => e.GrupaId, "UQ__Zaduzenj__3DCC9895385A36F9")
-                    .IsUnique();
-
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
                     .HasColumnName("ID");
@@ -330,8 +369,8 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.VodicId).HasColumnName("Vodic_Id");
 
                 entity.HasOne(d => d.Grupa)
-                    .WithOne(p => p.Zaduzenja)
-                    .HasForeignKey<Zaduzenja>(d => d.GrupaId)
+                    .WithMany(p => p.Zaduzenjas)
+                    .HasForeignKey(d => d.GrupaId)
                     .HasConstraintName("FK_Zaduzenja_grupa_Grupa_Id");
 
                 entity.HasOne(d => d.Putovanje)

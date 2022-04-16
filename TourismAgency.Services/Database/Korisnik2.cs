@@ -3,14 +3,8 @@ using System.Collections.Generic;
 
 namespace TourismAgency.Services.Database
 {
-    public partial class Korisnik
+    public partial class Korisnik2
     {
-        public Korisnik()
-        {
-            Notifikacijas = new HashSet<Notifikacija>();
-        }
-
-        public int Id { get; set; }
         public string? Ime { get; set; }
         public string? Prezime { get; set; }
         public string? Password { get; set; }
@@ -23,10 +17,6 @@ namespace TourismAgency.Services.Database
         public int? RezervacijaId { get; set; }
         public int? TuristId { get; set; }
         public int? VodicId { get; set; }
-
-        public virtual Rezervacija? Rezervacija { get; set; }
-        public virtual Turist? Turist { get; set; }
-        public virtual Vodic? Vodic { get; set; }
-        public virtual ICollection<Notifikacija> Notifikacijas { get; set; }
+        public int Id { get; set; }
     }
 }

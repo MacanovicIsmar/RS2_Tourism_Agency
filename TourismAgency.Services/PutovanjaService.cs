@@ -16,7 +16,7 @@ namespace TourismAgency.Services
             Putovanje,
             PutovanjaSearchObject,
             PutovanjeInsertRequest,
-            PutovanjeInsertRequest>, 
+            PutovanjeUpdateRequest>, 
         IPutovanjaServices
     {
         //dodano V2

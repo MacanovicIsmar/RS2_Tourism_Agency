@@ -7,6 +7,8 @@ namespace TourismAgency.Services.Database
     {
         public Vodic()
         {
+            Grupes = new HashSet<Grupe>();
+            Korisniks = new HashSet<Korisnik>();
             Zaduzenjas = new HashSet<Zaduzenja>();
         }
 
@@ -14,8 +16,8 @@ namespace TourismAgency.Services.Database
         public int? BrojObavljenihZaduzenja { get; set; }
         public int? BrojZaduzenih { get; set; }
 
-        public virtual Grupe? Grupe { get; set; }
-        public virtual Korisnik? Korisnik { get; set; }
+        public virtual ICollection<Grupe> Grupes { get; set; }
+        public virtual ICollection<Korisnik> Korisniks { get; set; }
         public virtual ICollection<Zaduzenja> Zaduzenjas { get; set; }
     }
 }

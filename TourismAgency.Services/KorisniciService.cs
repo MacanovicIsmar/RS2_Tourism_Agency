@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using RS2_Tourism_Agency.Model;
+using RS2_Tourism_Agency.Model.Request;
+using RS2_Tourism_Agency.Model.SearchObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +13,27 @@ using TourismAgency.Services.Database;
 namespace TourismAgency.Services
 {
     //dodano v2
-    public class KorisniciService : IKorisniciService
+    public class KorisniciService :
+        BASECRUDService
+        <
+            Korisnici,
+            Korisnik,
+            BaseSearchObject,
+            UpsertKorisnikRequest,
+            UpsertKorisnikRequest
+        >,     
+        IKorisniciService
     {
 
-        public Rs2_SeminarskiContext context { get; set;}
+        //public Rs2_SeminarskiContext context { get; set;}
 
-        public IMapper Mapper { get; set;}
+        //public IMapper Mapper { get; set;}
 
 
-        public KorisniciService(Rs2_SeminarskiContext context_ ,IMapper mapper_)
+        public KorisniciService(Rs2_SeminarskiContext context_ ,IMapper mapper_):base(context_, mapper_)
         {
-            context = context_;
-            Mapper = mapper_;
+            //context = context_;
+            //Mapper = mapper_;
         
         }
 

@@ -15,7 +15,7 @@ namespace RS2_Tourism_Agency.Controllers
             RS2_Tourism_Agency.Model.Putovanje,
             RS2_Tourism_Agency.Model.SearchObjects.PutovanjaSearchObject,
             PutovanjeInsertRequest,
-            PutovanjeInsertRequest
+            PutovanjeUpdateRequest
             > 
     {
         //private readonly IPutovanjaServices _PutovanjeService;

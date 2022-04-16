@@ -4,13 +4,13 @@ using System.Text;
 
 namespace RS2_Tourism_Agency.Model.Request
 {
-    public class PutovanjeInsertRequest
+    public class PutovanjeUpdateRequest
     {
 
         //public int ID { get; set; }
         public string Naziv { get; set; }
         public string Polazak { get; set; }
-       
+
         public int DrzavaId { get; set; }
         public string Opis { get; set; }
 
@@ -18,6 +18,9 @@ namespace RS2_Tourism_Agency.Model.Request
         //public byte[] SlikaThumb { get; set; }
 
         public bool? Status { get; set; }
+
+
+
 
 
     }

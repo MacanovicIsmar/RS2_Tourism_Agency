@@ -55,7 +55,27 @@ namespace TourismAgency.Services
 
         public T Update(int Id, TUpdate Update)
         {
-            throw new NotImplementedException();
+            var set = context.Set<TDb>();
+
+            var entity = set.Find(Id);
+
+            if (entity != null)
+            {
+                Mapper.Map(Update, entity);
+
+
+
+            }
+            else
+            {
+
+                return null;
+            
+            }
+            context.SaveChanges();
+
+            return Mapper.Map<T>(entity);
+
         }
     }
 }

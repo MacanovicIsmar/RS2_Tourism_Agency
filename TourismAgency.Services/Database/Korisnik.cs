@@ -7,6 +7,7 @@ namespace TourismAgency.Services.Database
     {
         public Korisnik()
         {
+            KorisniciUloges = new HashSet<KorisniciUloge>();
             Notifikacijas = new HashSet<Notifikacija>();
         }
 
@@ -27,6 +28,7 @@ namespace TourismAgency.Services.Database
         public virtual Rezervacija? Rezervacija { get; set; }
         public virtual Turist? Turist { get; set; }
         public virtual Vodic? Vodic { get; set; }
+        public virtual ICollection<KorisniciUloge> KorisniciUloges { get; set; }
         public virtual ICollection<Notifikacija> Notifikacijas { get; set; }
     }
 }

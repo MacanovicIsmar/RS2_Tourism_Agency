@@ -40,7 +40,7 @@ namespace TourismAgency.Services
         //    throw new NotImplementedException();
         //}
 
-        public T Insert(TInsert Insert)
+        public virtual T Insert(TInsert Insert)
         {
             var set = context.Set<TDb>();
 
@@ -48,12 +48,24 @@ namespace TourismAgency.Services
 
             set.Add(entity);
 
+            BeforeInsert(Insert,entity);
+
             context.SaveChanges();
 
             return Mapper.Map<T>(entity);
         }
 
-        public T Update(int Id, TUpdate Update)
+        public virtual void BeforeInsert(TInsert insert ,TDb entity)
+        { 
+        
+
+        
+        
+        
+        }
+
+
+        public virtual T Update(int Id, TUpdate Update)
         {
             var set = context.Set<TDb>();
 

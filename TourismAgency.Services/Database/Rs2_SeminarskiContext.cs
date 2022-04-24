@@ -17,8 +17,10 @@ namespace TourismAgency.Services.Database
         }
 
         public virtual DbSet<Drzava> Drzavas { get; set; } = null!;
+        public virtual DbSet<DrzavaNu> DrzavaNus { get; set; } = null!;
         public virtual DbSet<Grupe> Grupes { get; set; } = null!;
         public virtual DbSet<Grupe2> Grupe2s { get; set; } = null!;
+        public virtual DbSet<KorisniciUloge> KorisniciUloges { get; set; } = null!;
         public virtual DbSet<Korisnik> Korisniks { get; set; } = null!;
         public virtual DbSet<Korisnik2> Korisnik2s { get; set; } = null!;
         public virtual DbSet<Lokacija> Lokacijas { get; set; } = null!;
@@ -29,6 +31,7 @@ namespace TourismAgency.Services.Database
         public virtual DbSet<Rezervacija> Rezervacijas { get; set; } = null!;
         public virtual DbSet<Smjestaj> Smjestajs { get; set; } = null!;
         public virtual DbSet<Turist> Turists { get; set; } = null!;
+        public virtual DbSet<Uloge> Uloges { get; set; } = null!;
         public virtual DbSet<Vodic> Vodics { get; set; } = null!;
         public virtual DbSet<Zaduzenja> Zaduzenjas { get; set; } = null!;
 
@@ -46,6 +49,15 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Drzava>(entity =>
             {
                 entity.ToTable("Drzava");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Naziv).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<DrzavaNu>(entity =>
+            {
+                entity.ToTable("DrzavaNU");
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
@@ -88,6 +100,31 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.BrojZauzetihMjesta).HasColumnName("broj zauzetih mjesta");
 
                 entity.Property(e => e.VodicId).HasColumnName("vodic_id");
+            });
+
+            modelBuilder.Entity<KorisniciUloge>(entity =>
+            {
+                entity.ToTable("KorisniciUloge");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DatumIzmjene).HasColumnType("datetime");
+
+                entity.Property(e => e.KorisnikId).HasColumnName("Korisnik_ID");
+
+                entity.Property(e => e.UlogaId).HasColumnName("Uloga_ID");
+
+                entity.HasOne(d => d.Korisnik)
+                    .WithMany(p => p.KorisniciUloges)
+                    .HasForeignKey(d => d.KorisnikId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_KorisniciUloge_Korisnici_ID");
+
+                entity.HasOne(d => d.Uloga)
+                    .WithMany(p => p.KorisniciUloges)
+                    .HasForeignKey(d => d.UlogaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_KorisniciUloge_Uloge_ID");
             });
 
             modelBuilder.Entity<Korisnik>(entity =>
@@ -339,6 +376,17 @@ namespace TourismAgency.Services.Database
                     .WithMany(p => p.Turists)
                     .HasForeignKey(d => d.GrupaId)
                     .HasConstraintName("FK_Turist_Grupa_Grupa_Id");
+            });
+
+            modelBuilder.Entity<Uloge>(entity =>
+            {
+                entity.ToTable("Uloge");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Naziv).HasMaxLength(50);
+
+                entity.Property(e => e.Opis).HasMaxLength(200);
             });
 
             modelBuilder.Entity<Vodic>(entity =>

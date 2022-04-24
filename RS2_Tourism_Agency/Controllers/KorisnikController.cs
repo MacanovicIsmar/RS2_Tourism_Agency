@@ -22,8 +22,8 @@ namespace RS2_Tourism_Agency.Controllers
         <
         Korisnici,
         BaseSearchObject,
-        UpsertKorisnikRequest,
-        UpsertKorisnikRequest
+        KorisniciInsertRequest,
+        KorisnikUpdateRequest
 
         >
     {
@@ -40,30 +40,33 @@ namespace RS2_Tourism_Agency.Controllers
 
 
 
-        //[HttpGet]
-        //public IEnumerable<Korisnici> Get2()
-        //{
-
-            
-        //    return _KorisniciService.Get();
-
-
-
-
-        //}
-
-
-        //[HttpGet("{id}")]
-        //public Korisnik GetbyId(int id)
-        //{
-
-
-
-        //    return _PutovanjeService.GetbyId(id);
-
-
-
-        //}
+       
 
     }
 }
+
+
+//[HttpGet]
+//public IEnumerable<Korisnici> Get2()
+//{
+
+
+//    return _KorisniciService.Get();
+
+
+
+
+//}
+
+
+//[HttpGet("{id}")]
+//public Korisnik GetbyId(int id)
+//{
+
+
+
+//    return _PutovanjeService.GetbyId(id);
+
+
+
+//}

@@ -9,10 +9,18 @@ using System.Threading.Tasks;
 
 namespace TourismAgency.Services
 {
-    public interface IKorisniciService:
-        ICRUDService<Korisnici,BaseSearchObject,KorisniciInsertRequest, KorisnikUpdateRequest>
+    public interface IDrzavaService:ICRUDService<Country,DrzavaSearchObject, DrzavaUpSetRequest, DrzavaUpSetRequest>
     {
-        //IEnumerable<Korisnici> Get();
+
+
+
+
+
+
 
     }
+
 }
+
+//veze 
+//inheriting crud Interface

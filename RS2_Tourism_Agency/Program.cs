@@ -12,6 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+//dadano v4 
+//builder.Services.AddTransient<>
+
+
 //dodano 
 builder.Services.AddTransient<IPutovanjaServices ,PutovanjaService>();
 //dodano v2
@@ -19,6 +23,9 @@ builder.Services.AddTransient<IKorisniciService, KorisniciService>();
 
 //dodano v2
 builder.Services.AddTransient<IGrupeService, GrupeService>();
+
+//dodano v4
+builder.Services.AddTransient<IDrzavaService, DrzavaService>();
 
 
 //dodano v2

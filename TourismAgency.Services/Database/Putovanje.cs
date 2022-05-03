@@ -22,8 +22,7 @@ namespace TourismAgency.Services.Database
         public bool? Status { get; set; }
         public string? Opis { get; set; }
         public int? DrzavaId { get; set; }
-
-        public string StateMachine { get; set; }
+        public string? StateMachine { get; set; }
 
         public virtual Drzava? Drzava { get; set; }
         public virtual ICollection<Grupe> Grupes { get; set; }

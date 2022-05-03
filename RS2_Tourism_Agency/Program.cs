@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TourismAgency.Services;
 using TourismAgency.Services.Database;
+using TourismAgency.Services.PutovanjeStateMachine;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,16 @@ builder.Services.AddAutoMapper(typeof(IKorisniciService));
 //dodano V2
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<Rs2_SeminarskiContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//v5
+//register state machine all states
+builder.Services.AddTransient<BaseState>();
+builder.Services.AddTransient<InitialPutovanjeState>();
+builder.Services.AddTransient<PutovanjaDraftState>();
+builder.Services.AddTransient<PutovanjeActiveState>();
+
+
+
 
 var app = builder.Build();
 

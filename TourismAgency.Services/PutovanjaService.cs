@@ -20,10 +20,12 @@ namespace TourismAgency.Services
             PutovanjeUpdateRequest>, 
         IPutovanjaServices
     {
-        
+        public BaseState BaseState { get; set; }
         //dodano V2
-        public PutovanjaService(Rs2_SeminarskiContext context_, IMapper mapper_) : base(context_, mapper_)
+        public PutovanjaService(Rs2_SeminarskiContext context_, IMapper mapper_,BaseState BaseState_) : base(context_, mapper_)
         {
+
+            BaseState = BaseState_;
 
             //context = context_;
             //Mapper = mapper_;
@@ -69,7 +71,7 @@ namespace TourismAgency.Services
         public override RS2_Tourism_Agency.Model.Putovanje Insert(PutovanjeInsertRequest Insert)
         {
             var state = BaseState.CreateState("Initial");
-            state.Context = context;
+            //state.Context = context;
             return state.Insert(Insert);
              
         }
@@ -80,7 +82,7 @@ namespace TourismAgency.Services
 
             var state = BaseState.CreateState(product.StateMachine);
 
-            state.Context = context;
+            //state.Context = context;
             state.CurrentEntity = product;
 
             state.Update(Update);
@@ -95,12 +97,12 @@ namespace TourismAgency.Services
 
         public RS2_Tourism_Agency.Model.Putovanje Activate(int Id)
         {
-            var product = context.Putovanjes.Find(Id);
+            var Putovanje = context.Putovanjes.Find(Id);
 
-            var state = BaseState.CreateState(product.StateMachine);
+            var state = BaseState.CreateState(Putovanje.StateMachine);
 
-            state.Context = context;
-            state.CurrentEntity = product;
+            //state.Context = context;
+            state.CurrentEntity = Putovanje;
             state.Activate();
            
 
@@ -108,6 +110,15 @@ namespace TourismAgency.Services
 
             
         }
+        public List<string> AllowedActions(int id)
+        {
+            var Putovanje = GetbyId(id);
+            var state = BaseState.CreateState(Putovanje.StateMachine);
+
+            return state.AllowedActions();
+        }
+
+
     }
 }
 

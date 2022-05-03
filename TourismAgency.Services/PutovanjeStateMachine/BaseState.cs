@@ -1,4 +1,6 @@
 ﻿
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
 using RS2_Tourism_Agency.Model.Request;
 using System;
 using System.Collections.Generic;
@@ -9,13 +11,42 @@ using TourismAgency.Services.Database;
 
 namespace TourismAgency.Services.PutovanjeStateMachine
 {
-    public abstract class BaseState
+    public class BaseState
     {
+        public IMapper Mapper { get; set; }
+
+        public IServiceProvider ServiceProvider { get; set; }
+
+        public Rs2_SeminarskiContext Context { get; set; }
+
+        public BaseState(IMapper Mapper_ , IServiceProvider ServiceProvider_,Rs2_SeminarskiContext Context_)
+        {
+            Mapper = Mapper_;
+            ServiceProvider=ServiceProvider_ ;
+            Context=Context_;
+
+
+
+        }
+
+
+
+
 
         public Putovanje CurrentEntity { get; set; }
         public string CurrentState { get; set; }
 
-        public Rs2_SeminarskiContext Context { get; set; }
+      
+
+        //public BaseState 
+        //{
+
+
+
+        //}
+
+
+
 
         public virtual RS2_Tourism_Agency.Model.Putovanje Insert(PutovanjeInsertRequest request)
         {
@@ -62,20 +93,20 @@ namespace TourismAgency.Services.PutovanjeStateMachine
 
         }
 
-        public static BaseState CreateState(string statename )
+        public BaseState CreateState(string statename )
         {
            
 
             switch (statename)
             {
              case "Initial":
-                  return new InitialPutovanjeState();
+                    return ServiceProvider.GetService<InitialPutovanjeState>();
                     break;
                 case "Draft":
-                    return new PutovanjaDraftState();
+                    return ServiceProvider.GetService<PutovanjaDraftState>();
 
                 case "Active":
-                    return new PutovanjeActiveState();
+                    return ServiceProvider.GetService<PutovanjeActiveState>();
 
                 default:
                     throw new Exception("Not supported");
@@ -83,9 +114,13 @@ namespace TourismAgency.Services.PutovanjeStateMachine
             }
                
             
+        }
+        public virtual List<string> AllowedActions()
+        {
 
-
-
+           return new List<string>();
+        
+        
         }
 
 

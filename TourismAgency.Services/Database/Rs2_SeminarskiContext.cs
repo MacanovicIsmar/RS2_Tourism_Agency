@@ -24,6 +24,7 @@ namespace TourismAgency.Services.Database
         public virtual DbSet<Korisnik> Korisniks { get; set; } = null!;
         public virtual DbSet<Korisnik2> Korisnik2s { get; set; } = null!;
         public virtual DbSet<Lokacija> Lokacijas { get; set; } = null!;
+        public virtual DbSet<LokacijaNu> LokacijaNus { get; set; } = null!;
         public virtual DbSet<Notifikacija> Notifikacijas { get; set; } = null!;
         public virtual DbSet<PlanAktivnosti> PlanAktivnostis { get; set; } = null!;
         public virtual DbSet<Putovanje> Putovanjes { get; set; } = null!;
@@ -201,9 +202,7 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Lokacija");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Adresa).HasMaxLength(255);
 
@@ -219,6 +218,21 @@ namespace TourismAgency.Services.Database
                 entity.HasOne(d => d.Smjestaj)
                     .WithMany(p => p.Lokacijas)
                     .HasForeignKey(d => d.SmjestajId);
+            });
+
+            modelBuilder.Entity<LokacijaNu>(entity =>
+            {
+                entity.ToTable("LokacijaNU");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.Adresa).HasMaxLength(255);
+
+                entity.Property(e => e.PutovanjeId).HasColumnName("Putovanje_Id");
+
+                entity.Property(e => e.SmjestajId).HasColumnName("Smjestaj_id");
             });
 
             modelBuilder.Entity<Notifikacija>(entity =>
@@ -279,6 +293,8 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.Opis).HasMaxLength(255);
 
                 entity.Property(e => e.Polazak).HasMaxLength(255);
+
+                entity.Property(e => e.StateMachine).HasMaxLength(255);
 
                 entity.HasOne(d => d.Drzava)
                     .WithMany(p => p.Putovanjes)

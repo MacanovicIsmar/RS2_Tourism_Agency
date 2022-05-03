@@ -26,6 +26,9 @@ namespace TourismAgency.Services
 
         RS2_Tourism_Agency.Model.Putovanje Activate(int id);
 
+        List<string> AllowedActions(int id);
+
+
 
     }
 

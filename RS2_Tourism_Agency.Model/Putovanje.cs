@@ -20,6 +20,7 @@ namespace RS2_Tourism_Agency.Model
 
         public bool? Status { get; set; }
 
+        public string StateMachine { get; set; }
 
 
         //public virtual Drzava? Drzava { get; set; }

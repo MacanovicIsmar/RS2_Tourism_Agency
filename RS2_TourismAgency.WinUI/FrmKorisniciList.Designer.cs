@@ -29,32 +29,91 @@
         private void InitializeComponent()
         {
             this.button1 = new System.Windows.Forms.Button();
+            this.DGW_Korisnici = new System.Windows.Forms.DataGridView();
+            this.TBUSERNAME = new System.Windows.Forms.TextBox();
+            this.UserName = new System.Windows.Forms.Label();
+            this.Ime = new System.Windows.Forms.Label();
+            this.TBIME = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.DGW_Korisnici)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(617, 382);
+            this.button1.Location = new System.Drawing.Point(636, 43);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 31);
             this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
+            this.button1.Text = "Show";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // DGW_Korisnici
+            // 
+            this.DGW_Korisnici.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGW_Korisnici.Location = new System.Drawing.Point(69, 80);
+            this.DGW_Korisnici.Name = "DGW_Korisnici";
+            this.DGW_Korisnici.RowTemplate.Height = 25;
+            this.DGW_Korisnici.Size = new System.Drawing.Size(657, 322);
+            this.DGW_Korisnici.TabIndex = 1;
+            // 
+            // TBUSERNAME
+            // 
+            this.TBUSERNAME.Location = new System.Drawing.Point(69, 48);
+            this.TBUSERNAME.Name = "TBUSERNAME";
+            this.TBUSERNAME.Size = new System.Drawing.Size(203, 23);
+            this.TBUSERNAME.TabIndex = 2;
+            // 
+            // UserName
+            // 
+            this.UserName.AutoSize = true;
+            this.UserName.Location = new System.Drawing.Point(69, 21);
+            this.UserName.Name = "UserName";
+            this.UserName.Size = new System.Drawing.Size(62, 15);
+            this.UserName.TabIndex = 3;
+            this.UserName.Text = "UserName";
+            // 
+            // Ime
+            // 
+            this.Ime.AutoSize = true;
+            this.Ime.Location = new System.Drawing.Point(291, 21);
+            this.Ime.Name = "Ime";
+            this.Ime.Size = new System.Drawing.Size(27, 15);
+            this.Ime.TabIndex = 5;
+            this.Ime.Text = "Ime";
+            // 
+            // TBIME
+            // 
+            this.TBIME.Location = new System.Drawing.Point(291, 48);
+            this.TBIME.Name = "TBIME";
+            this.TBIME.Size = new System.Drawing.Size(203, 23);
+            this.TBIME.TabIndex = 4;
+            // 
+            // FrmKorisniciList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Ime);
+            this.Controls.Add(this.TBIME);
+            this.Controls.Add(this.UserName);
+            this.Controls.Add(this.TBUSERNAME);
+            this.Controls.Add(this.DGW_Korisnici);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FrmKorisniciList";
+            this.Text = "FormKorisnici";
+            ((System.ComponentModel.ISupportInitialize)(this.DGW_Korisnici)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private Button button1;
+        private DataGridView DGW_Korisnici;
+        private TextBox TBUSERNAME;
+        private Label UserName;
+        private Label Ime;
+        private TextBox TBIME;
     }
 }

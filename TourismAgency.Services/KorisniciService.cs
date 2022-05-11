@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using RS2_Tourism_Agency.Model;
 using RS2_Tourism_Agency.Model.Request;
 using RS2_Tourism_Agency.Model.SearchObjects;
@@ -19,7 +20,7 @@ namespace TourismAgency.Services
         <
             Korisnici,
             Korisnik,
-            BaseSearchObject,
+            KorisniciSearchObject,
             KorisniciInsertRequest,
             KorisnikUpdateRequest
         >,     
@@ -48,7 +49,9 @@ namespace TourismAgency.Services
             foreach (var uloge in Insert.UlogeIdList)
             {
 
-                KorisniciUloge Korisniciuloge_ = new KorisniciUloge();
+                TourismAgency.Services.Database.KorisniciUloge Korisniciuloge_=
+                     new TourismAgency.Services.Database.KorisniciUloge();
+
                 Korisniciuloge_.UlogaId = uloge;
                 Korisniciuloge_.KorisnikId = entity.Id;
                 Korisniciuloge_.DatumIzmjene = DateTime.Now;
@@ -75,10 +78,6 @@ namespace TourismAgency.Services
 
 
         }
-
-
-
-
 
         public static string GenerateSalt()
         {
@@ -117,15 +116,54 @@ namespace TourismAgency.Services
 
         }
 
+        public override IQueryable<Korisnik> AddFilter(IQueryable<Korisnik> query, KorisniciSearchObject search = null)
+        {
+            
+            var filterQuery = base.AddFilter(query, search);
+
+            if (!string.IsNullOrWhiteSpace(search?.KorisnickoIme))
+            {
+                filterQuery=filterQuery.Where(x => x.UserName ==search.KorisnickoIme);
 
 
+            }
+            if (!string.IsNullOrWhiteSpace(search?.NameFTS))
+            {
+                filterQuery = filterQuery.Where(x => 
+                   x.UserName.Contains(search.NameFTS) 
+                || x.Ime.Contains(search.NameFTS)
+                || x.Prezime.Contains(search.NameFTS)
+                );
+            }
+
+            return filterQuery;   
 
 
+        }
+
+        public RS2_Tourism_Agency.Model.Korisnici Login(string username, string password)
+        {
+            var entity = context.Korisniks
+                .Include("KorisniciUloges.Uloga")
+                .FirstOrDefault(x=>x.UserName == username);
+
+            if (entity == null)
+            {
+                return null;                   
+            }
+
+            var hash = Generatehash(entity.PasswordSalt, password);
+
+            if (hash != entity.Password)
+            {
+                return null;
+                        
+            }
 
 
-
-
-
+            return Mapper.Map<RS2_Tourism_Agency.Model.Korisnici>(entity);
+               
+        }
     }
 }
 

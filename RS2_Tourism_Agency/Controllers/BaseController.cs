@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TourismAgency.Services;
 
 namespace RS2_Tourism_Agency.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
 
     public class BaseController<T,TSearch> :ControllerBase where T :class where TSearch:class
     {
@@ -18,7 +20,7 @@ namespace RS2_Tourism_Agency.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<T> Get([FromQuery]TSearch search=null)
+        public virtual IEnumerable<T> Get([FromQuery]TSearch search=null)
         {
 
 
@@ -35,7 +37,7 @@ namespace RS2_Tourism_Agency.Controllers
 
         }
         [HttpGet("{id}")]
-        public T GetbyId(int id)
+        public virtual T GetbyId(int id)
         {
 
 

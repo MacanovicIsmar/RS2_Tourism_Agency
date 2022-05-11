@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 //dodano v2
 namespace RS2_Tourism_Agency.Model
 {
@@ -26,7 +27,7 @@ namespace RS2_Tourism_Agency.Model
         //public virtual Turist? Turist { get; set; }
         //public virtual Vodic? Vodic { get; set; }
         //public virtual ICollection<Notifikacija> Notifikacijas { get; set; }
-
+        public virtual ICollection<KorisniciUloge> KorisniciUloges { get; set; }
 
     }
 }

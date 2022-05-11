@@ -26,6 +26,7 @@ namespace TourismAgency.Services.Database
         public virtual DbSet<Lokacija> Lokacijas { get; set; } = null!;
         public virtual DbSet<LokacijaNu> LokacijaNus { get; set; } = null!;
         public virtual DbSet<Notifikacija> Notifikacijas { get; set; } = null!;
+        public virtual DbSet<Notifikacija2> Notifikacija2s { get; set; } = null!;
         public virtual DbSet<PlanAktivnosti> PlanAktivnostis { get; set; } = null!;
         public virtual DbSet<Putovanje> Putovanjes { get; set; } = null!;
         public virtual DbSet<Putovanje2> Putovanje2s { get; set; } = null!;
@@ -239,9 +240,7 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Notifikacija");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.KorisnikId).HasColumnName("Korisnik_Id");
 
@@ -256,6 +255,25 @@ namespace TourismAgency.Services.Database
                 entity.HasOne(d => d.Korisnik)
                     .WithMany(p => p.Notifikacijas)
                     .HasForeignKey(d => d.KorisnikId);
+            });
+
+            modelBuilder.Entity<Notifikacija2>(entity =>
+            {
+                entity.ToTable("Notifikacija2");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.KorisnikId).HasColumnName("Korisnik_Id");
+
+                entity.Property(e => e.Naslov).HasMaxLength(255);
+
+                entity.Property(e => e.Opis).HasMaxLength(255);
+
+                entity.Property(e => e.Osoba)
+                    .HasMaxLength(255)
+                    .HasColumnName("osoba");
             });
 
             modelBuilder.Entity<PlanAktivnosti>(entity =>

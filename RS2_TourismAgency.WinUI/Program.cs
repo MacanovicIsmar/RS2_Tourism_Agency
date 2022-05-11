@@ -11,7 +11,7 @@ namespace RS2_TourismAgency.WinUI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new FrmPutovanjaList());
+            Application.Run(new FrmLogIn());
         }
     }
 }

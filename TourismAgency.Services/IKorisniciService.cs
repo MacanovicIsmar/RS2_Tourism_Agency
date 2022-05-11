@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace TourismAgency.Services
 {
-    public interface IKorisniciService:
-        ICRUDService<Korisnici,BaseSearchObject,KorisniciInsertRequest, KorisnikUpdateRequest>
+    public interface IKorisniciService :
+        ICRUDService<Korisnici, KorisniciSearchObject, KorisniciInsertRequest, KorisnikUpdateRequest>
     {
         //IEnumerable<Korisnici> Get();
-
+        RS2_Tourism_Agency.Model.Korisnici Login(string username, string password);
     }
 }

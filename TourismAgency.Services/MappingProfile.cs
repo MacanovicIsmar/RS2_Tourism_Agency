@@ -16,6 +16,8 @@ namespace TourismAgency.Services
             CreateMap<Database.Putovanje, RS2_Tourism_Agency.Model.Putovanje>();
             CreateMap<Database.Grupe, RS2_Tourism_Agency.Model.Grupe>();
             CreateMap<Database.Drzava, RS2_Tourism_Agency.Model.Country>();
+            CreateMap<Database.Uloge, RS2_Tourism_Agency.Model.Uloge>();
+            CreateMap<Database.KorisniciUloge, RS2_Tourism_Agency.Model.KorisniciUloge>();
 
 
             //UPsert maping                   

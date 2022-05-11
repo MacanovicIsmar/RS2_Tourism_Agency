@@ -18,7 +18,7 @@ namespace RS2_Tourism_Agency.Controllers
 
 
         [HttpPost]
-        public T Insert([FromBody]TInsert insert)
+        public virtual T Insert([FromBody]TInsert insert)
         {
 
             var result=((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Insert(insert);
@@ -28,7 +28,7 @@ namespace RS2_Tourism_Agency.Controllers
         }
 
         [HttpPut("{Id}")]
-        public T Update(int Id,[FromBody]TUpdate Update)
+        public virtual T Update(int Id,[FromBody]TUpdate Update)
         {
 
             var result = ((ICRUDService<T, TSearch, TInsert, TUpdate>)this.Service).Update(Id, Update);

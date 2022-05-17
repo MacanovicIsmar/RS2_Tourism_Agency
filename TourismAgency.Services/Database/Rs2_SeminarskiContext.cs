@@ -28,6 +28,7 @@ namespace TourismAgency.Services.Database
         public virtual DbSet<Notifikacija> Notifikacijas { get; set; } = null!;
         public virtual DbSet<Notifikacija2> Notifikacija2s { get; set; } = null!;
         public virtual DbSet<PlanAktivnosti> PlanAktivnostis { get; set; } = null!;
+        public virtual DbSet<PlanAktivnosti2> PlanAktivnosti2s { get; set; } = null!;
         public virtual DbSet<Putovanje> Putovanjes { get; set; } = null!;
         public virtual DbSet<Putovanje2> Putovanje2s { get; set; } = null!;
         public virtual DbSet<Rezervacija> Rezervacijas { get; set; } = null!;
@@ -280,6 +281,24 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Plan_Aktivnosti");
 
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Datum).HasColumnType("date");
+
+                entity.Property(e => e.Opis).HasMaxLength(255);
+
+                entity.Property(e => e.PutovanjeId).HasColumnName("Putovanje_ID");
+
+                entity.HasOne(d => d.Putovanje)
+                    .WithMany(p => p.PlanAktivnostis)
+                    .HasForeignKey(d => d.PutovanjeId)
+                    .HasConstraintName("FK_PlanAktivnosti_Putovanje_PutovanjeId");
+            });
+
+            modelBuilder.Entity<PlanAktivnosti2>(entity =>
+            {
+                entity.ToTable("Plan_Aktivnosti2");
+
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
                     .HasColumnName("ID");
@@ -291,11 +310,6 @@ namespace TourismAgency.Services.Database
                 entity.Property(e => e.PutovanjeId).HasColumnName("Putovanje_ID");
 
                 entity.Property(e => e.Vrijeme).HasMaxLength(255);
-
-                entity.HasOne(d => d.Putovanje)
-                    .WithMany(p => p.PlanAktivnostis)
-                    .HasForeignKey(d => d.PutovanjeId)
-                    .HasConstraintName("FK_PlanAktivnosti_Putovanje_PutovanjeId");
             });
 
             modelBuilder.Entity<Putovanje>(entity =>

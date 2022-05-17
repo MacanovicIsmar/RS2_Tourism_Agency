@@ -54,11 +54,37 @@ namespace RS2_TourismAgency.WinUI
         }
         public async Task<T> Post<T>(object request)
         {
-            var result = await $"{endpoint}{_resource}"
-                .WithBasicAuth(Username, Password)
-                .PostJsonAsync(request).ReceiveJson<T>();
+            try
+            {
 
-            return result;
+                var result = await $"{endpoint}{_resource}"
+                    .WithBasicAuth(Username, Password)
+                    .PostJsonAsync(request).ReceiveJson<T>();
+
+                return result;
+
+
+            }
+            catch (FlurlHttpException ex)
+            {
+                var errors = await ex.GetResponseJsonAsync<Dictionary<string, string[]>>();
+
+                var stringBuilder = new StringBuilder();
+                foreach (var error in errors)
+                {
+                    stringBuilder.AppendLine($"{error.Key}, ${string.Join(",", error.Value)}");
+                }
+
+                MessageBox.Show(stringBuilder.ToString(), "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return default(T);
+
+
+
+            }
+
+
+
+           
 
 
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 //dodano v2
 namespace RS2_Tourism_Agency.Model
 {
@@ -16,7 +17,7 @@ namespace RS2_Tourism_Agency.Model
         public string Email { get; set; }
         public string Telefon { get; set; }
 
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
         public string Role { get; set; }
 
         //public int? RezervacijaId { get; set; }
@@ -28,6 +29,10 @@ namespace RS2_Tourism_Agency.Model
         //public virtual Vodic? Vodic { get; set; }
         //public virtual ICollection<Notifikacija> Notifikacijas { get; set; }
         public virtual ICollection<KorisniciUloge> KorisniciUloges { get; set; }
+
+        public string RoleNames => String.Join(", ",KorisniciUloges?.Select(X => X.Uloga?.Naziv)?
+            .ToList());
+            
 
     }
 }

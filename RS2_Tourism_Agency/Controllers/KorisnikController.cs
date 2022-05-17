@@ -40,7 +40,7 @@ namespace RS2_Tourism_Agency.Controllers
 
         }
 
-        [Authorize("Administrator")]
+        //[Authorize("Administrator")]
 
         public override Korisnici Insert([FromBody] KorisniciInsertRequest insert)
         {
@@ -50,7 +50,7 @@ namespace RS2_Tourism_Agency.Controllers
         }
 
 
-        [Authorize("Administrator")]
+        //[Authorize("Administrator")]
         public override Korisnici Update(int Id, [FromBody] KorisnikUpdateRequest Update)
         {  
             return base.Update(Id, Update);

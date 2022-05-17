@@ -42,6 +42,18 @@ namespace TourismAgency.Services
 
         public override Korisnici Insert(KorisniciInsertRequest Insert)
         {
+
+            //v7 password confirmation
+            if (Insert.Password != Insert.PasswordConfirm)
+            {
+
+                throw new UserException("Password and confirm password not the same");
+            
+            }
+
+
+
+
             //prijasna verzija metode
             var entity = base.Insert(Insert);
 
@@ -164,6 +176,29 @@ namespace TourismAgency.Services
             return Mapper.Map<RS2_Tourism_Agency.Model.Korisnici>(entity);
                
         }
+
+        public override IQueryable<Korisnik> AddInclude(IQueryable<Korisnik> query, KorisniciSearchObject search = null)
+        {
+            if (search?.IncludeRules == true)
+            {
+
+                query = query.Include("KorisniciUloges.Uloga");
+            
+            
+            }
+
+            return query;
+        }
+
+        public override Korisnici Update(int Id, KorisnikUpdateRequest Update)
+        {
+            //implementirati updajt za role
+            var entity= base.Update(Id, Update);
+
+            return entity;
+
+        }
+
     }
 }
 

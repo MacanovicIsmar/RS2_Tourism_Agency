@@ -30,6 +30,10 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.DGW_Korisnici = new System.Windows.Forms.DataGridView();
+            this.ImeD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PrezimeD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RoleNamesD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusD = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.TBUSERNAME = new System.Windows.Forms.TextBox();
             this.UserName = new System.Windows.Forms.Label();
             this.Ime = new System.Windows.Forms.Label();
@@ -50,11 +54,43 @@
             // DGW_Korisnici
             // 
             this.DGW_Korisnici.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGW_Korisnici.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ImeD,
+            this.PrezimeD,
+            this.RoleNamesD,
+            this.StatusD});
             this.DGW_Korisnici.Location = new System.Drawing.Point(69, 80);
             this.DGW_Korisnici.Name = "DGW_Korisnici";
             this.DGW_Korisnici.RowTemplate.Height = 25;
+            this.DGW_Korisnici.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGW_Korisnici.Size = new System.Drawing.Size(657, 322);
             this.DGW_Korisnici.TabIndex = 1;
+            this.DGW_Korisnici.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGW_Korisnici_CellContentClick);
+            this.DGW_Korisnici.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGW_Korisnici_CellDoubleClick);
+            // 
+            // ImeD
+            // 
+            this.ImeD.DataPropertyName = "Ime";
+            this.ImeD.HeaderText = "Ime";
+            this.ImeD.Name = "ImeD";
+            // 
+            // PrezimeD
+            // 
+            this.PrezimeD.DataPropertyName = "Prezime";
+            this.PrezimeD.HeaderText = "Prezime";
+            this.PrezimeD.Name = "PrezimeD";
+            // 
+            // RoleNamesD
+            // 
+            this.RoleNamesD.DataPropertyName = "RoleNames";
+            this.RoleNamesD.HeaderText = "RoleNames";
+            this.RoleNamesD.Name = "RoleNamesD";
+            // 
+            // StatusD
+            // 
+            this.StatusD.DataPropertyName = "Status";
+            this.StatusD.HeaderText = "Status";
+            this.StatusD.Name = "StatusD";
             // 
             // TBUSERNAME
             // 
@@ -115,5 +151,9 @@
         private Label UserName;
         private Label Ime;
         private TextBox TBIME;
+        private DataGridViewTextBoxColumn ImeD;
+        private DataGridViewTextBoxColumn PrezimeD;
+        private DataGridViewTextBoxColumn RoleNamesD;
+        private DataGridViewCheckBoxColumn StatusD;
     }
 }

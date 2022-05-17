@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using RS2_Tourism_Agency.Filters;
 using TourismAgency.Services;
 using TourismAgency.Services.Database;
 using TourismAgency.Services.PutovanjeStateMachine;
@@ -9,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+//vs7 edit
+builder.Services.AddControllers(x => {
+
+    x.Filters.Add<ErrorFilter>();
+
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => 
@@ -91,6 +97,9 @@ builder.Services.AddAuthentication("BasicAuthentication")
         BasicAuthenticationHandler
         >
         ("BasicAuthentication", null);
+
+//v7
+builder.Services.AddTransient<Iservice<RS2_Tourism_Agency.Model.Uloge,RS2_Tourism_Agency.Model.SearchObjects.BaseSearchObject>, BaseService<RS2_Tourism_Agency.Model.Uloge,Uloge, RS2_Tourism_Agency.Model.SearchObjects.BaseSearchObject>>();
 
 
 

@@ -11,6 +11,8 @@ namespace RS2_Tourism_Agency.Model.SearchObjects
 
         public string KorisnickoIme { get; set; }
 
+        public bool IncludeRules { get; set;}
+
 
     }
 }

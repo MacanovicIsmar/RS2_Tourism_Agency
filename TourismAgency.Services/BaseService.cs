@@ -40,6 +40,13 @@ namespace TourismAgency.Services
         
         }
 
+        public virtual IQueryable<TDb> AddInclude(IQueryable<TDb> query, TSearch search = null)
+        {
+
+
+            return query;
+
+        }
 
 
 
@@ -52,6 +59,8 @@ namespace TourismAgency.Services
             var entity = context.Set<TDb>().AsQueryable();
 
             entity = AddFilter(entity, search);
+
+            entity = AddInclude(entity, search);
 
             if (search?.Page.HasValue==true && search?.PageSize.HasValue==true)
             {

@@ -46,7 +46,7 @@ namespace RS2_TourismAgency.WinUI
             {
                 var result = await Service.Get<dynamic>();
 
-                FrmKorisniciList frm = new FrmKorisniciList();
+                MDIMain frm = new MDIMain();
                 frm.Show();
             }
             catch (Exception ex)

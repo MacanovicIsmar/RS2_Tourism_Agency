@@ -123,4 +123,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+//v8
+//using (var scope = app.Services.CreateScope())
+//{
+//    var dataContext = scope.ServiceProvider.GetRequiredService<Rs2_SeminarskiContext>();
+//    dataContext.Database.Migrate();
+
+//}
+
+
+
+    app.Run();

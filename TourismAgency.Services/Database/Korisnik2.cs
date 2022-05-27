@@ -5,6 +5,7 @@ namespace TourismAgency.Services.Database
 {
     public partial class Korisnik2
     {
+        public int Id { get; set; }
         public string? Ime { get; set; }
         public string? Prezime { get; set; }
         public string? Password { get; set; }
@@ -17,6 +18,5 @@ namespace TourismAgency.Services.Database
         public int? RezervacijaId { get; set; }
         public int? TuristId { get; set; }
         public int? VodicId { get; set; }
-        public int Id { get; set; }
     }
 }

@@ -5,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RS2_Tourism_Agency.Model;
+using RS2_TourismAgency.WinUI.Properties;
 
 namespace RS2_TourismAgency.WinUI
 {
     public class APIService
     {
         private string _resource = null;
-        public  string  endpoint = "https://localhost:7029/";
+        public string endpoint = Settings.Default.ApiUrl;
         public static string Username = null;
         public static string Password = null;
 

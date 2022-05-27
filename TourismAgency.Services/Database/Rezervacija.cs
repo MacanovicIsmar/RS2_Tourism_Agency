@@ -13,7 +13,7 @@ namespace TourismAgency.Services.Database
         public int Id { get; set; }
         public string? Naziv { get; set; }
         public int? PutovanjeId { get; set; }
-        public int? BrojLjudi { get; set; }
+        public int? Brojljudi { get; set; }
         public int? SmjestajId { get; set; }
 
         public virtual Putovanje? Putovanje { get; set; }

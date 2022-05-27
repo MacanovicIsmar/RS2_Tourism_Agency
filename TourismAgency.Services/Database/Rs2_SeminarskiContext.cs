@@ -32,6 +32,7 @@ namespace TourismAgency.Services.Database
         public virtual DbSet<Putovanje> Putovanjes { get; set; } = null!;
         public virtual DbSet<Putovanje2> Putovanje2s { get; set; } = null!;
         public virtual DbSet<Rezervacija> Rezervacijas { get; set; } = null!;
+        public virtual DbSet<Rezervacija2> Rezervacija2s { get; set; } = null!;
         public virtual DbSet<Smjestaj> Smjestajs { get; set; } = null!;
         public virtual DbSet<Turist> Turists { get; set; } = null!;
         public virtual DbSet<Uloge> Uloges { get; set; } = null!;
@@ -43,7 +44,7 @@ namespace TourismAgency.Services.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=localhost,1433; Initial Catalog=Rs2_Seminarski; user=sa;Password=Pa774499");
+                optionsBuilder.UseSqlServer("Data Source=localhost,1401; Initial Catalog=Rs2_Seminarski; user=sa;Password=Pa774499");
             }
         }
 
@@ -72,6 +73,10 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Grupe>(entity =>
             {
                 entity.ToTable("Grupe");
+
+                entity.HasIndex(e => e.PutovanjeId, "IX_Grupe_Putovanje_Id");
+
+                entity.HasIndex(e => e.VodicId, "IX_Grupe_vodic_id");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -109,6 +114,10 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("KorisniciUloge");
 
+                entity.HasIndex(e => e.KorisnikId, "IX_KorisniciUloge_Korisnik_ID");
+
+                entity.HasIndex(e => e.UlogaId, "IX_KorisniciUloge_Uloga_ID");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.DatumIzmjene).HasColumnType("datetime");
@@ -133,6 +142,12 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Korisnik>(entity =>
             {
                 entity.ToTable("Korisnik");
+
+                entity.HasIndex(e => e.RezervacijaId, "IX_Korisnik_Rezervacija_Id");
+
+                entity.HasIndex(e => e.TuristId, "IX_Korisnik_Turist_Id");
+
+                entity.HasIndex(e => e.VodicId, "IX_Korisnik_Vodic_Id");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -204,6 +219,10 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Lokacija");
 
+                entity.HasIndex(e => e.PutovanjeId, "IX_Lokacija_Putovanje_Id");
+
+                entity.HasIndex(e => e.SmjestajId, "IX_Lokacija_Smjestaj_id");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Adresa).HasMaxLength(255);
@@ -240,6 +259,8 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Notifikacija>(entity =>
             {
                 entity.ToTable("Notifikacija");
+
+                entity.HasIndex(e => e.KorisnikId, "IX_Notifikacija_Korisnik_Id");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -281,6 +302,8 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Plan_Aktivnosti");
 
+                entity.HasIndex(e => e.PutovanjeId, "IX_Plan_Aktivnosti_Putovanje_ID");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Datum).HasColumnType("date");
@@ -315,6 +338,8 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Putovanje>(entity =>
             {
                 entity.ToTable("Putovanje");
+
+                entity.HasIndex(e => e.DrzavaId, "IX_Putovanje_Drzava_Id");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -357,11 +382,7 @@ namespace TourismAgency.Services.Database
             {
                 entity.ToTable("Rezervacija");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
-
-                entity.Property(e => e.BrojLjudi).HasColumnName("Broj ljudi");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Naziv).HasMaxLength(255);
 
@@ -377,6 +398,27 @@ namespace TourismAgency.Services.Database
                 entity.HasOne(d => d.Smjestaj)
                     .WithMany(p => p.Rezervacijas)
                     .HasForeignKey(d => d.SmjestajId);
+            });
+
+            modelBuilder.Entity<Rezervacija2>(entity =>
+            {
+                entity.ToTable("Rezervacija2");
+
+                entity.HasIndex(e => e.PutovanjeId, "IX_Rezervacija_Putovanje_ID");
+
+                entity.HasIndex(e => e.SmjestajId, "IX_Rezervacija_Smjestaj_Id");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.BrojLjudi).HasColumnName("Broj ljudi");
+
+                entity.Property(e => e.Naziv).HasMaxLength(255);
+
+                entity.Property(e => e.PutovanjeId).HasColumnName("Putovanje_ID");
+
+                entity.Property(e => e.SmjestajId).HasColumnName("Smjestaj_Id");
             });
 
             modelBuilder.Entity<Smjestaj>(entity =>
@@ -401,6 +443,8 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Turist>(entity =>
             {
                 entity.ToTable("Turist");
+
+                entity.HasIndex(e => e.GrupaId, "IX_Turist_Grupa_Id");
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()
@@ -451,6 +495,12 @@ namespace TourismAgency.Services.Database
             modelBuilder.Entity<Zaduzenja>(entity =>
             {
                 entity.ToTable("Zaduzenja");
+
+                entity.HasIndex(e => e.GrupaId, "IX_Zaduzenja_Grupa_Id");
+
+                entity.HasIndex(e => e.PutovanjeId, "IX_Zaduzenja_Putovanje_Id");
+
+                entity.HasIndex(e => e.VodicId, "IX_Zaduzenja_Vodic_Id");
 
                 entity.Property(e => e.Id)
                     .ValueGeneratedNever()

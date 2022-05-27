@@ -1,0 +1,37 @@
+version: '3'
+services:
+#mssql docker
+  tourismagency-sql:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    restart: unless-stopped
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pa774499
+      - MSSQL_PID=Developer
+    ports:
+      - 1401:1433
+    expose:
+        - 1433
+    networks:
+      - TourismAgency2022
+
+  tourismagency-api:
+    restart: unless-stopped
+    build:
+      context: .
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=TourismAgency-sql,1433;Database=Rs2_Seminarski;User=sa;Password=Pa774499;ConnectRetryCount=0
+      - ASPNETCORE_ENVIRONMENT=Development 
+      #passing down variable to the container
+    ports:
+      - 5192:5192
+    networks:
+      - TourismAgency2022
+    links:
+      - tourismagency-sql
+    depends_on:
+      - tourismagency-sql
+      
+networks:
+  TourismAgency2022:
+    driver: bridge      
